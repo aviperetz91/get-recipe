@@ -6,6 +6,7 @@ import styles from './style';
 const CategoryBox = props => {
     return (
         <TouchableOpacity 
+            activeOpacity={0.9}
             style={styles.gridItem}
             onPress={props.onSelect}>
             <View style={{...styles.container, backgroundColor: props.color}}>
