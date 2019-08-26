@@ -7,30 +7,24 @@ import CategoryBox from '../../components/CategotyBox';
 
 class Categories extends Component {
 
-    static navigationOptions = {
-        headerTitle: "Categories",
-    };
-
-    renderGridItem = (itemData) => {
-        return (
-            <CategoryBox 
-                title={itemData.item.title}
-                color={itemData.item.color}
-                onSelect={() => this.props.navigation.navigate("CategoryMeals", {
-                    categoryId: itemData.item.id,
-                    categoryTitle: itemData.item.title
-                })}
-            />
-        )
-    }
-
     render() {
-        return(
+        return (
             <FlatList 
                 numColumns={2} 
                 data={CATEGORIES}
                 keyExtractor={(item, index) => item.id}
-                renderItem={this.renderGridItem}
+                renderItem={(catrgory) => {
+                    return (
+                        <CategoryBox 
+                            title={catrgory.item.title}
+                            color={catrgory.item.color}
+                            onSelect={() => this.props.navigation.navigate("CategoryMeals", {
+                                categoryId: catrgory.item.id,
+                                categoryTitle: catrgory.item.title
+                            })}
+                        />
+                    )
+                }}
             />
         )
     }
