@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
 
-import styles from './style'
 import { MEALS } from '../../data/temp-data';
-import MealItem from '../../components/MealItem';
+import MealList from '../../components/MealList';
 
 class CategoryMeals extends Component {
 
@@ -16,26 +14,11 @@ class CategoryMeals extends Component {
     render() {
         const catId = this.props.navigation.getParam("categoryId");
         const filteredMeals = MEALS.filter(meal => meal.categoryIds.indexOf(catId) !== -1)
-        return(
-            <View style={styles.screen}>
-                <FlatList
-                    style={styles.list}
-                    data={filteredMeals}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={meal => (
-                        <MealItem 
-                            title={meal.item.title}
-                            image={meal.item.imageUrl}
-                            duration={meal.item.duration}
-                            complexity={meal.item.complexity}
-                            affordability={meal.item.affordability}
-                            onSelectMeal={() => this.props.navigation.navigate("MealDetails", {
-                                mealId: meal.item.id,
-                                mealTitle: meal.item.title
-                            })}
-                        />
-                    )}/>
-            </View>
+        return (
+            <MealList
+                listData={filteredMeals}
+                navigation={this.props.navigation}
+            />
         )
     }
 };

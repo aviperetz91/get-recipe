@@ -35,7 +35,32 @@ const MealsNavigator = createStackNavigator(
     }
 );
 
-const FavoriteMealsNavigator = createBottomTabNavigator(
+const FavoritesNavigator = createStackNavigator(
+    {
+        FavoriteMeals: {
+            screen: FavoriteMeals,
+            navigationOptions: {
+                headerTitle: "Your Favorites"
+            }
+        },
+        MealDetails: MealDetails, 
+    },
+    {
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: Colors.primary,
+            },
+            headerTintColor: "white",
+            headerTitleStyle: {
+                alignSelf: "center",
+                flex: 1,
+                textAlign: "center"
+            }
+        },  
+    }
+)
+
+const RootNavigator = createBottomTabNavigator(
     {
         // Meals: MealsNavigator,
         Meals: {
@@ -49,7 +74,7 @@ const FavoriteMealsNavigator = createBottomTabNavigator(
         
         // Favorites: FavoriteMeals
         Favorites: {
-            screen: FavoriteMeals, 
+            screen: FavoritesNavigator, 
             navigationOptions: {
                 tabBarIcon: (tabInfo) => {
                     return <Icon name="ios-star" size={25} color={tabInfo.tintColor} />
@@ -63,11 +88,11 @@ const FavoriteMealsNavigator = createBottomTabNavigator(
                 fontSize: 14
             },
             activeBackgroundColor: Colors.primary,
-            activeTintColor: "yellow",
+            activeTintColor: Colors.accent,
             inactiveBackgroundColor: Colors.primary,
             inactiveTintColor: "#ccc"
         }
     }
 );
 
-export default createAppContainer(FavoriteMealsNavigator);
+export default createAppContainer(RootNavigator);
