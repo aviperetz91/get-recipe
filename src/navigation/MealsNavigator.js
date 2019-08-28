@@ -1,66 +1,48 @@
 import React from 'react';
-import { createStackNavigator, createBottomTabNavigator,  createAppContainer } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Categorties from '../screens/Categories';
 import CategoryMeals from '../screens/CategoryMeals';
 import MealDetails from '../screens/MealDetails';
 import FavoriteMeals from '../screens/FavoriteMeals';
+import FilterMeals from '../screens/FilterMeals';
 
 import Colors from '../constants/Colors';
 
+const navOptions = {
+    headerStyle: {
+        backgroundColor: Colors.primary,
+    },
+    headerTintColor: "white",
+    // headerTitleStyle: {
+    //     flex: 1,
+    //     textAlign: "center"
+    // }
+}
+
 const MealsNavigator = createStackNavigator(
     {
-        Categories: {
-            screen: Categorties, 
-            navigationOptions: {
-                headerTitle: "Categories"
-            }
-        },
+        Categories: Categorties,
         CategoryMeals: CategoryMeals,
         MealDetails: MealDetails
     },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: Colors.primary,
-            },
-            headerTintColor: "white",
-            headerTitleStyle: {
-                alignSelf: "center",
-                flex: 1,
-                textAlign: "center"
-            }
-        },   
+        defaultNavigationOptions: navOptions // obj that created on top so that can be reuse   
     }
 );
 
 const FavoritesNavigator = createStackNavigator(
     {
-        FavoriteMeals: {
-            screen: FavoriteMeals,
-            navigationOptions: {
-                headerTitle: "Your Favorites"
-            }
-        },
+        FavoriteMeals: FavoriteMeals,
         MealDetails: MealDetails, 
     },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: Colors.primary,
-            },
-            headerTintColor: "white",
-            headerTitleStyle: {
-                alignSelf: "center",
-                flex: 1,
-                textAlign: "center"
-            }
-        },  
+        defaultNavigationOptions: navOptions
     }
 )
 
-const RootNavigator = createBottomTabNavigator(
+const TabsNavigator = createBottomTabNavigator(
     {
         // Meals: MealsNavigator,
         Meals: {
@@ -84,7 +66,7 @@ const RootNavigator = createBottomTabNavigator(
     },
     {
         tabBarOptions: {
-            labelStyle:{
+            labelStyle: {
                 fontSize: 14
             },
             activeBackgroundColor: Colors.primary,
@@ -94,5 +76,30 @@ const RootNavigator = createBottomTabNavigator(
         }
     }
 );
+
+// use a stack navigator here so that also have header
+const filterNavigator = createStackNavigator(
+    {
+        FilterMeals: FilterMeals
+    },
+    {
+        defaultNavigationOptions: navOptions
+    }
+)
+
+const RootNavigator = createDrawerNavigator(
+    {
+        Meals: TabsNavigator,
+        Filters: filterNavigator
+    },
+    {
+        contentOptions: {
+            activeTintColor: "orange",
+            labelStyle: {
+                // fontSize: 16
+            }
+        }
+    }  
+)
 
 export default createAppContainer(RootNavigator);
