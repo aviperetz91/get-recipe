@@ -9,18 +9,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: "hidden"
     },  
-    mealRow: {
-        flexDirection: "row",
-    },
-    mealHeader: {
-        height: "85%"
-    },
-    mealDetail: {   
-        height: "15%",
-        paddingHorizontal: 10,
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
     bgImage: {
         width: "100%",
         height: "100%",

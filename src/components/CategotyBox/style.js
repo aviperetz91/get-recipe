@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     gridItem: {
         flex: 1,
-        margin: 15,
+        marginTop: 15,
+        marginHorizontal: 15,
+        marginBottom: 25,
         height: 150,
     },
     container: {
@@ -14,13 +16,18 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 10,
         elevation: 5,
-        padding: 15,
-        justifyContent: "flex-end",
-        alignItems: "flex-end"
+        padding: 4,
+    },
+    titleContainer: {
+        alignItems: "center"
     },
     title: {
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+    },
+    bgImage: {
+        width: "100%",
+        height: "100%",
     }
 })
   

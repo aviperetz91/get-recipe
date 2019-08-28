@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import axios from 'axios';
 
-import { CATEGORIES } from '../../data/temp-data';
 import HeaderButton from '../../components/HeaderButton';
 import CategoryBox from '../../components/CategotyBox';
 
+
 class Categories extends Component {
     
+    state = {
+        categories: [],
+    }
+
+    componentDidMount = () => {
+        axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
+        .then(response => this.setState({
+            categories: response.data.categories
+        }));
+    }
+
     static navigationOptions = ({navigation}) => {
         return {
             headerTitle: "Categories",
@@ -28,16 +40,15 @@ class Categories extends Component {
         return (
             <FlatList 
                 numColumns={2} 
-                data={CATEGORIES}
-                keyExtractor={(item, index) => item.id}
-                renderItem={(catrgory) => {
+                data={this.state.categories}
+                keyExtractor={(item, index) => item.idCategory}
+                renderItem={(category) => {
                     return (
                         <CategoryBox 
-                            title={catrgory.item.title}
-                            color={catrgory.item.color}
+                            title={category.item.strCategory}
+                            backImage={category.item.strCategoryThumb}
                             onSelect={() => this.props.navigation.navigate("CategoryMeals", {
-                                categoryId: catrgory.item.id,
-                                categoryTitle: catrgory.item.title
+                                categoryTitle: category.item.strCategory
                             })}
                         />
                     )

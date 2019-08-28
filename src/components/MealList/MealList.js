@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 import styles from './style';
 import MealItem from '../MealItem'
@@ -10,17 +10,14 @@ const MealList = props => {
             <FlatList
                 style={styles.list}
                 data={props.listData}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item, index) => item.idMeal}
                 renderItem={meal => (
                     <MealItem 
-                        title={meal.item.title}
-                        image={meal.item.imageUrl}
-                        duration={meal.item.duration}
-                        complexity={meal.item.complexity}
-                        affordability={meal.item.affordability}
+                        title={meal.item.strMeal}
+                        image={meal.item.strMealThumb}
                         onSelectMeal={() => props.navigation.navigate("MealDetails", {
-                            mealId: meal.item.id,
-                            mealTitle: meal.item.title
+                            mealId: meal.item.idMeal,
+                            mealTitle: meal.item.strMeal
                         })}
                     />
                 )}/>
