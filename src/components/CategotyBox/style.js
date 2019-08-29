@@ -11,11 +11,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderRadius: 10,
-        shadowColor: "black",
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 10,
-        elevation: 2,
+        borderTopWidth: 1,
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
+        borderBottomWidth: 2,
+        borderColor: "#ccc"
+        // shadowColor: "black",
+        // shadowOpacity: 0.26,
+        // shadowOffset: {width: 0, height: 2},
+        // shadowRadius: 10,
+        // elevation: 10,
     },
     titleContainer: {
         alignItems: "center"
@@ -27,6 +32,7 @@ const styles = StyleSheet.create({
     bgImage: {
         width: "100%",
         height: "100%",
+        overflow: "hidden"
     }
 })
   

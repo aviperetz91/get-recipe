@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 import { makeIngredientsArray, makeMeasureArray } from './methods'
 import HeaderButton from '../../components/HeaderButton';
+import InfoSection from '../../components/InfoSection';
 
 class MealDetails extends Component {
 
@@ -48,46 +49,48 @@ class MealDetails extends Component {
                 />
                 <Text style={styles.listItemTitle} key={index}>{cur}</Text>
             </View>
-            
         ));
 
         const measureList = measure.map((cur,index) => (
             <View style={styles.listItem}>
-                <Text style={styles.listItemTitle} key={index}>{cur}</Text>
+                <Text style={styles.listItemTitle} key={cur}>{cur}</Text>
             </View>
         ));
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView>
                 <Image 
                     style={styles.image}
                     source={{uri: this.state.selectedMeal.strMealThumb}}
                 />
-                <Text style={styles.title}>Ingredients & Measure</Text>
-                <View style={styles.ingredientsContainer}>
-                    <View style={styles.list}>
-                        {ingredientList}
+                <InfoSection>
+                    <Text style={styles.title}>Ingredients</Text>
+                    <View style={styles.ingredientsContainer}>
+                        <View style={styles.list}>
+                            {ingredientList}
+                        </View>
+                        <View style={styles.list}>
+                            {measureList}
+                        </View>
                     </View>
-                    <View style={styles.list}>
-                        {measureList}
+                </InfoSection>
+                <InfoSection>
+                    <View>
+                        <Text style={{...styles.title, marginBottom: 10}}>Instructions</Text>
+                        <Text style={styles.content}>{this.state.selectedMeal.strInstructions}</Text>
                     </View>
-                </View>
-                <View>
-                    <Text style={styles.title}>Instructions</Text>
-                    <Text style={styles.content}>{this.state.selectedMeal.strInstructions}</Text>
-                </View>
-                <TouchableOpacity 
-                    style={styles.iconContainer}
-                    activeOpacity={0.6}
-                    onPress={() => Linking.openURL(this.state.selectedMeal.strYoutube)} >
-                    <Icon 
-                        size={40} 
-                        name="logo-youtube" 
-                        color="#ff0000"  
-                    />
-                    <Text style={styles.iconTitle}>Recipe Video</Text>
-                </TouchableOpacity>
-
+                    <TouchableOpacity 
+                        style={styles.iconContainer}
+                        activeOpacity={0.6}
+                        onPress={() => Linking.openURL(this.state.selectedMeal.strYoutube)} >
+                        <Icon 
+                            size={40} 
+                            name="logo-youtube" 
+                            color="#ff0000"  
+                        />
+                        <Text style={styles.iconTitle}>Recipe Video</Text>
+                    </TouchableOpacity>
+                </InfoSection>
             </ScrollView>
         )
     }
