@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.26,
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 10,
-        elevation: 5,
-        padding: 4,
+        elevation: 2,
     },
     titleContainer: {
         alignItems: "center"
