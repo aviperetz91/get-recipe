@@ -8,17 +8,6 @@ import CategoryBox from '../../components/CategotyBox';
 
 
 class Categories extends Component {
-    
-    state = {
-        categories: [],
-    }
-
-    componentDidMount = () => {
-        axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
-        .then(response => this.setState({
-            categories: response.data.categories
-        }));
-    }
 
     static navigationOptions = ({navigation}) => {
         return {
@@ -34,6 +23,17 @@ class Categories extends Component {
                     />
                 </HeaderButtons>
         }
+    }
+    
+    state = {
+        categories: [],
+    }
+
+    componentDidMount = () => {
+        axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
+        .then(response => this.setState({
+            categories: response.data.categories
+        }));
     }
 
     render() {

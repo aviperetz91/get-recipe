@@ -11,18 +11,6 @@ import InfoSection from '../../components/InfoSection';
 
 class MealDetails extends Component {
 
-    state = {
-        selectedMeal: {}
-    }
-
-    componentDidMount = () => {
-        const id = this.props.navigation.getParam("mealId");
-        axios.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id)
-        .then(response => this.setState({
-            selectedMeal: response.data.meals[0]
-        }));
-    }
-    
     static navigationOptions  = ({navigation}) => {
         return {
             headerTitle: navigation.getParam("mealTitle"),
@@ -35,6 +23,18 @@ class MealDetails extends Component {
                     />
                 </HeaderButtons>
         }
+    }
+
+    state = {
+        selectedMeal: {}
+    }
+
+    componentDidMount = () => {
+        const id = this.props.navigation.getParam("mealId");
+        axios.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id)
+        .then(response => this.setState({
+            selectedMeal: response.data.meals[0]
+        }));
     }
 
     render() {
