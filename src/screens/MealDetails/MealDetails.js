@@ -41,18 +41,18 @@ class MealDetails extends Component {
         const measure = makeMeasureArray(this.props.selectedMeal);
 
         const ingredientList = ingredients.map((cur,index) => (
-            <View style={styles.listItem}>
+            <View style={styles.listItem} key={/*temporary*/Math.random().toString()}>
                 <Image 
                     style={styles.ingredientImage}
                     source={{uri:"https://www.themealdb.com/images/ingredients/" + cur + ".png"}}
                 />
-                <Text style={styles.listItemTitle} key={/*temporary*/Math.random()}>{cur}</Text>
+                <Text style={styles.listItemTitle}>{cur}</Text>
             </View>
         ));
 
         const measureList = measure.map((cur,index) => (
-            <View style={styles.listItem}>
-                <Text style={styles.listItemTitle} key={/*temporary*/Math.random()}>{cur}</Text>
+            <View style={styles.listItem} key={/*temporary*/Math.random().toString()}>
+                <Text style={styles.listItemTitle}>{cur}</Text>
             </View>
         ));
 

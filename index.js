@@ -5,11 +5,13 @@ import {name as appName} from './app.json';
 
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import mealsReducer from './src/store/reducers/mealsReducer';
+import mealsReducer from './src/store/reducers/mealsReducer/mealsReducer';
+import inputReducer from './src/store/reducers/inputReducer/inputReducer';
 
 const rootReducer = combineReducers({
-    meals: mealsReducer
-  });
+    meals: mealsReducer,
+    input: inputReducer
+});
   
 const store = createStore(rootReducer);
 

@@ -1,11 +1,17 @@
-import { GET_CATEGORIES, GET_MEALS, TOGGLE_SEARCH_BAR, SEARCH_MEAL, SELECT_MAEL } from '../../store/actions/actionsTypes';
+import {
+    GET_CATEGORIES,
+    GET_MEALS, 
+    TOGGLE_SEARCH_BAR, 
+    SEARCH_MEAL, 
+    SELECT_MAEL, 
+} from '../../actions/actionsTypes';
 
 const initialState = {
     categories: [],
     meals: [],
     filteredMeals: [],
     searchActive: false,
-    selectedMeal: {}
+    selectedMeal: {},
 }
 
 const mealsReducer = (state = initialState, action) => {

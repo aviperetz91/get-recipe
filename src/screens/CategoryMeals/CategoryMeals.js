@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, Button } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 
-import { GET_MEALS, TOGGLE_SEARCH_BAR, SEARCH_MEAL } from '../../store/actions/actionsTypes';
+import { GET_MEALS, TOGGLE_SEARCH_BAR, SEARCH_MEAL, RESET_INPUT } from '../../store/actions/actionsTypes';
 
 import MealList from '../../components/MealList';
 import HeaderButton from '../../components/HeaderButton';
@@ -45,7 +45,7 @@ class CategoryMeals extends Component {
                 <SearchBar 
                     title="Search"
                     placeHolder="Enter a meal name"
-                    onActive={this.searchMealHandler}
+                    onActiveSearch={this.searchMealHandler}
                 />
             )
         }
@@ -53,6 +53,7 @@ class CategoryMeals extends Component {
     }
 
     searchMealHandler = userInput => {
+        this.props.onResetInput()
         if(userInput === "") {
             this.props.getMeals(this.props.meals);
         }
@@ -61,7 +62,6 @@ class CategoryMeals extends Component {
         })
         this.props.onSearch(searchResults);
     }
-    
 
     render() {
         return (
@@ -80,7 +80,7 @@ const mapStateToProps = state => {
     return {
         meals: state.meals.meals,
         filteredMeals: state.meals.filteredMeals,
-        searchActive: state.meals.searchActive
+        searchActive: state.meals.searchActive,
     }
 };
 
@@ -88,7 +88,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getMeals: (meals) => dispatch({type: GET_MEALS, meals}),
         onToggleSearchBar: (toggle) => dispatch({type: TOGGLE_SEARCH_BAR, toggle}),
-        onSearch: (results) => dispatch({type: SEARCH_MEAL, results})
+        onSearch: (results) => dispatch({type: SEARCH_MEAL, results}),
+        onResetInput: () => dispatch({type:RESET_INPUT})
     }
 }
 
