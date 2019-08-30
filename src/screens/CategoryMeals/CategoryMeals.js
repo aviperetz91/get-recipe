@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Button } from 'react-native';
+import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
+
+import { GET_MEALS, TOGGLE_SEARCH_BAR, SEARCH_MEAL } from '../../store/actions/actionsTypes';
 
 import MealList from '../../components/MealList';
 import HeaderButton from '../../components/HeaderButton';
@@ -23,59 +26,49 @@ class CategoryMeals extends Component {
         }
     }
 
-    state = {
-        meals: [],
-        category: this.props.navigation.getParam("categoryTitle"),
-        filteredMeals: [],
-        searchActive: false
-    }
-
     componentDidMount = () => {
-        axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + this.state.category)
-        .then(response => this.setState({
-            meals: response.data.meals,
-            filteredMeals: response.data.meals
-        }))
-        this.props.navigation.setParams({toggle: this.toggleSearch})
+        axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + this.props.navigation.getParam("categoryTitle"))
+        .then(response => {
+            this.props.getMeals(response.data.meals); 
+        })
+        this.props.navigation.setParams({toggle: this.toggleSearchBarHandler})
     }
 
-    toggleSearch = () => {
-        const toggle = !this.state.searchActive;
-        this.setState({searchActive: toggle});
+    toggleSearchBarHandler = () => {
+        const toggle = !this.props.searchActive;
+        this.props.onToggleSearchBar(toggle)
     }
 
-    displaySearchBar = () => {
-        if(this.state.searchActive) {
+    displaySearchBarHandler = () => {
+        if(this.props.searchActive) {
             return (
                 <SearchBar 
                     title="Search"
                     placeHolder="Enter a meal name"
-                    onActive={this.searchMeal}
+                    onActive={this.searchMealHandler}
                 />
             )
         }
         return;
     }
-    
-    searchMeal = userInput => {
+
+    searchMealHandler = userInput => {
         if(userInput === "") {
-            this.setState({
-                filteredMeals: this.state.meals
-            })
+            this.props.getMeals(this.props.meals);
         }
-        const searchResults = this.state.meals.filter(meal => {
+        const searchResults = this.props.meals.filter(meal => {
             return meal.strMeal.toLowerCase().includes(userInput.toLowerCase())
         })
-        this.setState({filteredMeals: searchResults})
+        this.props.onSearch(searchResults);
     }
     
 
     render() {
         return (
             <ScrollView>
-                {this.displaySearchBar()}
+                {this.displaySearchBarHandler()}
                 <MealList
-                    listData={this.state.filteredMeals}
+                    listData={this.props.filteredMeals}
                     navigation={this.props.navigation}
                 />
             </ScrollView>
@@ -83,4 +76,20 @@ class CategoryMeals extends Component {
     }
 };
 
-export default CategoryMeals;
+const mapStateToProps = state => {
+    return {
+        meals: state.meals.meals,
+        filteredMeals: state.meals.filteredMeals,
+        searchActive: state.meals.searchActive
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMeals: (meals) => dispatch({type: GET_MEALS, meals}),
+        onToggleSearchBar: (toggle) => dispatch({type: TOGGLE_SEARCH_BAR, toggle}),
+        onSearch: (results) => dispatch({type: SEARCH_MEAL, results})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryMeals);

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 
+import { GET_CATEGORIES } from '../../store/actions/actionsTypes';
+
 import HeaderButton from '../../components/HeaderButton';
 import CategoryBox from '../../components/CategotyBox';
-
 
 class Categories extends Component {
 
@@ -24,23 +26,19 @@ class Categories extends Component {
                 </HeaderButtons>
         }
     }
-    
-    state = {
-        categories: [],
-    }
 
     componentDidMount = () => {
         axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
-        .then(response => this.setState({
-            categories: response.data.categories
-        }));
+        .then(response => {
+            this.props.getCategories(response.data.categories)
+        });
     }
 
     render() {
         return (
             <FlatList 
                 numColumns={2} 
-                data={this.state.categories}
+                data={this.props.categories}
                 keyExtractor={(item, index) => item.idCategory}
                 renderItem={(category) => {
                     return (
@@ -58,4 +56,16 @@ class Categories extends Component {
     }
 };
 
-export default Categories;
+const mapStateToProps = state => {
+    return {
+        categories: state.meals.categories
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getCategories: (categories) => dispatch({type: GET_CATEGORIES, categories})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

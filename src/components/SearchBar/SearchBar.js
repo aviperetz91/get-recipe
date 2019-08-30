@@ -20,7 +20,8 @@ class SearchBar extends Component{
                 <Button
                     style={styles.placeButton}
                     onPress={() => this.props.onActive(this.state.userInput)}
-                >{this.props.title}</Button>
+                >{this.props.title}
+                </Button>
             </View>
         )
     }

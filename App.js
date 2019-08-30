@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-// import { useScreens } from 'react-native-screens';
+import { useScreens } from 'react-native-screens';
 
 import MealsNavigator from './src/navigation/MealsNavigator';
 
-// useScreens();
+useScreens();
 
 class App extends Component {
   render() {
-    return(
+    return (
       <MealsNavigator />
     )
   }
