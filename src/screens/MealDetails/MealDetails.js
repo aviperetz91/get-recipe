@@ -5,7 +5,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
  
-import { SELECT_MAEL } from '../../store/actions/actionsTypes';
+import { SELECT_MAEL, TOGGLE_FAVORITE } from '../../store/actions/actionsTypes';
 
 import styles from './style';
 import { makeIngredientsArray, makeMeasureArray } from './methods'
@@ -21,8 +21,8 @@ class MealDetails extends Component {
                 <HeaderButtons HeaderButtonComponent={HeaderButton} >
                     <Item 
                         title="Favorite"
-                        iconName="ios-star"   
-                        onPress={() => console.log("Mark as favorite!")} 
+                        iconName={navigation.getParam("isFav") ? "ios-star" : "ios-star-outline"}   
+                        onPress={navigation.getParam("toggleFavorite")} 
                     />
                 </HeaderButtons>
         }
@@ -34,6 +34,18 @@ class MealDetails extends Component {
         .then(response => {
             this.props.onSelectMeal(response.data.meals[0]);
         });
+        this.props.navigation.setParams({toggleFavorite: this.toggleFavoriteHandler, isFav: this.props.isFavorite})
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(this.props.isFavorite !== prevProps.isFavorite){
+            this.props.navigation.setParams({isFav: this.props.isFavorite})
+        }
+    }
+
+    toggleFavoriteHandler = () => {
+        this.props.onToggleFavorite(this.props.selectedMeal);
+        // this.props.navigation.navigate("FavoriteMeals");
     }
 
     render() {
@@ -97,13 +109,16 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => {
     return {
-        selectedMeal: state.meals.selectedMeal
+        selectedMeal: state.meals.selectedMeal,
+        favoriteMeals: state.meals.favoriteMeals,
+        isFavorite: state.meals.favoriteMeals.some(meal => meal.idMeal === state.meals.selectedMeal.idMeal)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSelectMeal: (meal) => dispatch({type: SELECT_MAEL, meal})
+        onSelectMeal: (meal) => dispatch({type: SELECT_MAEL, meal}),
+        onToggleFavorite: (favMeal) => dispatch({type: TOGGLE_FAVORITE, favMeal})
     }
 }
 

@@ -60,7 +60,7 @@ class CategoryMeals extends Component {
         const searchResults = this.props.meals.filter(meal => {
             return meal.strMeal.toLowerCase().includes(userInput.toLowerCase())
         })
-        this.props.onSearch(searchResults);
+        this.props.onSearchMeal(searchResults);
     }
 
     render() {
@@ -88,7 +88,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getMeals: (meals) => dispatch({type: GET_MEALS, meals}),
         onToggleSearchBar: (toggle) => dispatch({type: TOGGLE_SEARCH_BAR, toggle}),
-        onSearch: (results) => dispatch({type: SEARCH_MEAL, results}),
+        onSearchMeal: (results) => dispatch({type: SEARCH_MEAL, results}),
         onResetInput: () => dispatch({type:RESET_INPUT})
     }
 }

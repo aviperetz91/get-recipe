@@ -3,7 +3,8 @@ import {
     GET_MEALS, 
     TOGGLE_SEARCH_BAR, 
     SEARCH_MEAL, 
-    SELECT_MAEL, 
+    SELECT_MAEL,
+    TOGGLE_FAVORITE,
 } from '../../actions/actionsTypes';
 
 const initialState = {
@@ -12,6 +13,8 @@ const initialState = {
     filteredMeals: [],
     searchActive: false,
     selectedMeal: {},
+    favoriteMeals: [],
+    isFavorite: false
 }
 
 const mealsReducer = (state = initialState, action) => {
@@ -42,6 +45,22 @@ const mealsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedMeal: action.meal
+            }
+        case TOGGLE_FAVORITE:
+            const existingMeal = state.favoriteMeals.find(meal => meal.idMeal === action.favMeal.idMeal);
+            if (existingMeal) {
+                return {
+                    ...state,
+                    favoriteMeals: state.favoriteMeals.filter(meal => {
+                        return meal.idMeal !== action.favMeal.idMeal
+                    })
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    favoriteMeals: state.favoriteMeals.concat(action.favMeal)
+                }
             }
         default:
             return state;

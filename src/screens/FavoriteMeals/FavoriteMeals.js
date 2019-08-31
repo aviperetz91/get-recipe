@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-
-import styles from './style';
+import { connect } from 'react-redux';
 
 import HeaderButton from '../../components/HeaderButton';
 import MealList from '../../components/MealList';
@@ -27,11 +25,18 @@ class FavoriteMeals extends Component {
 
     render() {
         return (
-            <View style={styles.screen}>
-                <Text>Favorites Screen!</Text>
-            </View>
+            <MealList
+                listData={this.props.favoriteMeals}
+                navigation={this.props.navigation}
+            />
         )
     }
 };
 
-export default FavoriteMeals;
+const mapStateToProps = state => {
+    return {
+        favoriteMeals: state.meals.favoriteMeals
+    }
+}
+
+export default connect(mapStateToProps, null)(FavoriteMeals);
