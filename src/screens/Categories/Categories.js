@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 
-import { GET_CATEGORIES } from '../../store/actions/actionsTypes';
+import { fetchCategories } from '../../store/actions/MealsActions';
 
 import HeaderButton from '../../components/HeaderButton';
 import CategoryBox from '../../components/CategotyBox';
@@ -35,10 +35,16 @@ class Categories extends Component {
     }
 
     render() {
+        let categories = [];
+        for(let i of this.props.categories) {
+            if(i.strCategory !== "Pork" && i.strCategory !== "Seafood" && i.strCategory !== "Goat" && i.strCategory !== "Vegan") {
+                categories.push(i);
+            }
+        }
         return (
             <FlatList 
                 numColumns={2} 
-                data={this.props.categories}
+                data={categories}
                 keyExtractor={(item, index) => item.idCategory}
                 renderItem={(category) => {
                     return (
@@ -64,7 +70,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getCategories: (categories) => dispatch({type: GET_CATEGORIES, categories})
+        getCategories: (categories) => dispatch(fetchCategories(categories))
     }
 }
 

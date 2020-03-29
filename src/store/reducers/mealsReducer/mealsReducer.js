@@ -1,20 +1,15 @@
 import {
     GET_CATEGORIES,
     GET_MEALS, 
-    TOGGLE_SEARCH_BAR, 
-    SEARCH_MEAL, 
     SELECT_MAEL,
     TOGGLE_FAVORITE,
-} from '../../actions/actionsTypes';
+} from '../../actions/MealsActions';
 
 const initialState = {
     categories: [],
     meals: [],
-    filteredMeals: [],
-    searchActive: false,
     selectedMeal: {},
     favoriteMeals: [],
-    isFavorite: false
 }
 
 const mealsReducer = (state = initialState, action) => {
@@ -31,16 +26,6 @@ const mealsReducer = (state = initialState, action) => {
                 filteredMeals: action.meals
             }
         }
-        case TOGGLE_SEARCH_BAR:
-            return {
-                ...state,
-                searchActive: action.toggle
-            }
-        case SEARCH_MEAL: 
-            return {
-                ...state,
-                filteredMeals: action.results
-            }
         case SELECT_MAEL:
             return {
                 ...state,

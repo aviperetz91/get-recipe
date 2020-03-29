@@ -5,7 +5,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
  
-import { SELECT_MAEL, TOGGLE_FAVORITE } from '../../store/actions/actionsTypes';
+import { selectMeal, toggleFavorite } from '../../store/actions/MealsActions';
 
 import styles from './style';
 import { makeIngredientsArray, makeMeasureArray } from './methods'
@@ -117,8 +117,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSelectMeal: (meal) => dispatch({type: SELECT_MAEL, meal}),
-        onToggleFavorite: (favMeal) => dispatch({type: TOGGLE_FAVORITE, favMeal})
+        onSelectMeal: (meal) => dispatch(selectMeal(meal)),
+        onToggleFavorite: (favMeal) => dispatch(toggleFavorite(favMeal))
     }
 }
 
