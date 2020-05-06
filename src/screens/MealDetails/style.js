@@ -7,29 +7,27 @@ const styles = StyleSheet.create({
     },
     ingredientsContainer: {
         flexDirection: "row",
-        justifyContent: "center",
+        alignItems: "center",
     },
     title: {
         marginTop: 10,
+        marginBottom: 10,
         textAlign: "center",
         fontSize: 20,
         fontWeight: "bold",
     },
-    list: {
-        margin: 7,
-    },
-    listItem: {
-        flexDirection: "row",
-        height: 50,
-        alignItems: "center"
-    },
     ingredientImage: {
         width: 50,
         height: 50,
-        marginRight: 7
+        marginRight: 7,
+        alignItems: "center",
+    },
+    listItemImg: {
+        fontSize: 16,
+        alignSelf: 'center'
     },
     listItemTitle: {
-        fontSize: 16
+        fontSize: 16,
     },
     content: {
         fontSize: 16
@@ -43,6 +41,9 @@ const styles = StyleSheet.create({
     iconTitle: {
         textAlign: "center",
         marginLeft: 5
+    },
+    col: {
+        width: '33%',
     }
 })
   

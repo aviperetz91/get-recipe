@@ -1,33 +1,17 @@
-class Meal {
-  constructor(
-    id,
-    categoryIds,
-    title,
-    affordability,
-    complexity,
-    imageUrl,
-    duration,
-    ingredients,
-    steps,
-    isGlutenFree,
-    isVegan,
-    isVegetarian,
-    isLactoseFree
-  ) {
-    this.id = id;
-    this.categoryIds = categoryIds;
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.ingredients = ingredients;
-    this.steps = steps;
-    this.duration = duration;
-    this.complexity = complexity;
-    this.affordability = affordability;
-    this.isGlutenFree = isGlutenFree;
-    this.isVegan = isVegan;
-    this.isVegetarian = isVegetarian;
-    this.isLactoseFree = isLactoseFree;
+export default class Meal {
+  constructor(idMeal, strMeal, strDrinkAlternate, strCategory, strCategory, strArea, strInstructions, strMealThumb, strTags, strYoutube, strSource, dateModified, ingredientList, measureList) {
+      this.idMeal = idMeal; 
+      this.strMeal = strMeal;
+      this.strDrinkAlternate = strDrinkAlternate;
+      this.strCategory = strCategory;
+      this.strArea = strArea;
+      this.strInstructions = strInstructions;
+      this.strMealThumb = strMealThumb;
+      this.strTags = strTags;
+      this.strYoutube = strYoutube;
+      this.strSource = strSource;
+      this.dateModified = dateModified;
+      this.ingredientList = ingredientList;
+      this.measureList = measureList;
   }
 }
-
-export default Meal;
