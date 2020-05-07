@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
     image: {
@@ -10,11 +11,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     title: {
-        marginTop: 10,
-        marginBottom: 10,
-        textAlign: "center",
+        color: Colors.primary,
         fontSize: 20,
         fontWeight: "bold",
+        textAlign: "center"
+        // paddingLeft: 8
     },
     ingredientImage: {
         width: 50,

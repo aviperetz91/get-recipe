@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
+import { Card, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
@@ -30,7 +31,7 @@ class MealDetails extends Component {
     componentDidMount = () => {
         const id = this.props.navigation.getParam("mealId");
         axios.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id)
-        .then(response => this.props.onSelectMeal(response.data.meals[0]));
+            .then(response => this.props.onSelectMeal(response.data.meals[0]));
         this.props.navigation.setParams({ toggleFavorite: this.toggleFavoriteHandler, isFav: this.props.isFavorite })
     }
 
@@ -81,54 +82,54 @@ class MealDetails extends Component {
             const ingredientList = this.makeIngredientsArray(this.props.selectedMeal);
             const measureList = this.makeMeasureArray(this.props.selectedMeal);
             const updatedSelectedMeal = this.extendMealObject(this.props.selectedMeal, ingredientList, measureList);
-            
+
             const ingredientAndMeasure = updatedSelectedMeal.ingredientList.map((cur, index) => (
-                <View style={styles.ingredientsContainer} key={/*temporary*/Math.random().toString()}>
-                    <View style={styles.col}>
-                        <View style={styles.listItemImg}>
-                            <Image
-                                style={styles.ingredientImage}
-                                source={{ uri: "https://www.themealdb.com/images/ingredients/" + cur + ".png" }}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.col}>
-                        <Text style={styles.listItemTitle}>{cur}</Text>
-                    </View>
-                    <View style={styles.col}>
+                <ListItem thumbnail>
+                    <Left>
+                        <Thumbnail source={{ uri: "https://www.themealdb.com/images/ingredients/" + cur + ".png" }} />
+                    </Left>
+                    <Body>
+                        <Text style={styles.listItemTitle}>{cur}</Text>                                            
+                    </Body>
+                    <Right>
                         <Text style={styles.listItemTitle}>{updatedSelectedMeal.measureList[index]}</Text>
-                    </View>
-                </View>
+                    </Right>
+                </ListItem>
             ));
+
             return (
                 <ScrollView>
                     <Image
                         style={styles.image}
                         source={{ uri: this.props.selectedMeal.strMealThumb }}
                     />
-                    <InfoSection>
-                        <Text style={styles.title}>{'Ingredients & Measure'}</Text>
-                        <View>
-                            {ingredientAndMeasure}
-                        </View>
-                    </InfoSection>
-                    <InfoSection>
-                        <View>
-                            <Text style={{ ...styles.title, marginBottom: 10 }}>Instructions</Text>
-                            <Text style={styles.content}>{this.props.selectedMeal.strInstructions}</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.iconContainer}
-                            activeOpacity={0.6}
-                            onPress={() => Linking.openURL(this.props.selectedMeal.strYoutube)} >
-                            <Icon
-                                size={40}
-                                name="logo-youtube"
-                                color="#ff0000"
-                            />
-                            <Text style={styles.iconTitle}>Recipe Video</Text>
-                        </TouchableOpacity>
-                    </InfoSection>
+                    <View style={{padding: 7}}>   
+                        <Text style={styles.title }>Ingredients</Text>                     
+                        <Card>
+                            {/* <View style={{padding: 7}}>
+                                <Text style={styles.title }>Ingredients</Text>
+                            </View> */}
+                            <List>{ingredientAndMeasure}</List>
+                        </Card>     
+                        <Text style={{...styles.title, marginTop: 15}}>Instructions</Text>                   
+                        <Card>                            
+                            <View style={{padding: 7}}>
+                                {/* <Text style={ styles.title }>Instructions</Text> */}
+                                <Text style={styles.content}>{this.props.selectedMeal.strInstructions}</Text>
+                            </View>
+                            <TouchableOpacity
+                                style={styles.iconContainer}
+                                activeOpacity={0.6}
+                                onPress={() => Linking.openURL(this.props.selectedMeal.strYoutube)} >
+                                <Icon
+                                    size={40}
+                                    name="logo-youtube"
+                                    color="#ff0000"
+                                />
+                                <Text style={styles.iconTitle}>Recipe Video</Text>
+                            </TouchableOpacity>
+                        </Card>
+                    </View> 
                 </ScrollView>
             )
         } else {
