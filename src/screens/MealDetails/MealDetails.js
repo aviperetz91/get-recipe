@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
-import { Card, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
+import { Card, List, ListItem, Left, Body, Right, Thumbnail, Header, Button, Title, Icon } from 'native-base';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/Ionicons';
-
 import { selectMeal, toggleFavorite } from '../../store/actions/MealsActions';
-
-import styles from './style';
 import HeaderButton from '../../components/HeaderButton';
-import InfoSection from '../../components/InfoSection';
+import styles from './style';
+import Colors from '../../constants/Colors';
 
 class MealDetails extends Component {
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerTitle: navigation.getParam("mealTitle"),
-            headerRight:
-                <HeaderButtons HeaderButtonComponent={HeaderButton} >
-                    <Item
-                        title="Favorite"
-                        iconName={navigation.getParam("isFav") ? "ios-star" : "ios-star-outline"}
-                        onPress={navigation.getParam("toggleFavorite")}
-                    />
-                </HeaderButtons>
-        }
-    }
+    // static navigationOptions = ({ navigation }) => {
+    //     return {
+    //         headerTitle: navigation.getParam("mealTitle"),
+    //         headerRight:
+    //             <HeaderButtons HeaderButtonComponent={HeaderButton} >
+    //                 <Item
+    //                     title="Favorite"
+    //                     iconName={navigation.getParam("isFav") ? "ios-star" : "ios-star-outline"}
+    //                     onPress={navigation.getParam("toggleFavorite")}
+    //                 />
+    //             </HeaderButtons>
+    //     }
+    // }
 
     componentDidMount = () => {
         const id = this.props.navigation.getParam("mealId");
@@ -43,7 +40,6 @@ class MealDetails extends Component {
 
     toggleFavoriteHandler = () => {
         this.props.onToggleFavorite(this.props.selectedMeal);
-        // this.props.navigation.navigate("FavoriteMeals");
     }
 
     makeIngredientsArray = (meal) => {
@@ -78,6 +74,8 @@ class MealDetails extends Component {
     }
 
     render() {
+        const navigation = this.props.navigation;
+
         if (Object.keys(this.props.selectedMeal).length > 0) {
             const ingredientList = this.makeIngredientsArray(this.props.selectedMeal);
             const measureList = this.makeMeasureArray(this.props.selectedMeal);
@@ -89,7 +87,7 @@ class MealDetails extends Component {
                         <Thumbnail source={{ uri: "https://www.themealdb.com/images/ingredients/" + cur + ".png" }} />
                     </Left>
                     <Body>
-                        <Text style={styles.listItemTitle}>{cur}</Text>                                            
+                        <Text style={styles.listItemTitle}>{cur}</Text>
                     </Body>
                     <Right>
                         <Text style={styles.listItemTitle}>{updatedSelectedMeal.measureList[index]}</Text>
@@ -98,39 +96,55 @@ class MealDetails extends Component {
             ));
 
             return (
-                <ScrollView>
-                    <Image
-                        style={styles.image}
-                        source={{ uri: this.props.selectedMeal.strMealThumb }}
-                    />
-                    <View style={{padding: 7}}>   
-                        <Text style={styles.title }>Ingredients</Text>                     
-                        <Card>
-                            {/* <View style={{padding: 7}}>
-                                <Text style={styles.title }>Ingredients</Text>
-                            </View> */}
-                            <List>{ingredientAndMeasure}</List>
-                        </Card>     
-                        <Text style={{...styles.title, marginTop: 15}}>Instructions</Text>                   
-                        <Card>                            
-                            <View style={{padding: 7}}>
-                                {/* <Text style={ styles.title }>Instructions</Text> */}
-                                <Text style={styles.content}>{this.props.selectedMeal.strInstructions}</Text>
-                            </View>
-                            <TouchableOpacity
-                                style={styles.iconContainer}
-                                activeOpacity={0.6}
-                                onPress={() => Linking.openURL(this.props.selectedMeal.strYoutube)} >
-                                <Icon
-                                    size={40}
-                                    name="logo-youtube"
-                                    color="#ff0000"
-                                />
-                                <Text style={styles.iconTitle}>Recipe Video</Text>
-                            </TouchableOpacity>
-                        </Card>
-                    </View> 
-                </ScrollView>
+                <View>
+                    <Header style={styles.backgroundColor} androidStatusBarColor={Colors.darkPrimary}>
+                        <Left>
+                            <Button transparent onPress={() => navigation.goBack()}>
+                                <Icon name='arrow-back' />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title>{navigation.getParam("mealTitle")}</Title>
+                        </Body>
+                        <Right>
+                            <Button transparent onPress={() => this.props.onToggleFavorite(this.props.selectedMeal)}>
+                                <Icon name={navigation.getParam("isFav") ? 'star' : 'star-outline'} />
+                            </Button>
+                            <Button transparent onPress={() => navigation.navigate("Home")}>
+                                <Icon name='home' />
+                            </Button>
+                        </Right>
+                    </Header>
+                    <ScrollView>
+                        <Image
+                            style={styles.image}
+                            source={{ uri: this.props.selectedMeal.strMealThumb }}
+                        />
+                        <View style={{ padding: 7, marginTop: 10 }}>
+                            <Text style={styles.title}>Ingredients</Text>
+                            <Card>                                
+                                <List>{ingredientAndMeasure}</List>
+                            </Card>
+                            <Text style={{ ...styles.title, marginTop: 15 }}>Instructions</Text>
+                            <Card>
+                                <View style={{ padding: 7 }}>
+                                    <Text style={styles.content}>{this.props.selectedMeal.strInstructions}</Text>
+                                </View>
+                                <TouchableOpacity
+                                    style={styles.iconContainer}
+                                    activeOpacity={0.6}
+                                    onPress={() => Linking.openURL(this.props.selectedMeal.strYoutube)} >
+                                    <Icon
+                                        size={40}
+                                        name="logo-youtube"
+                                        color="#ff0000"
+                                    />
+                                    <Text style={styles.iconTitle}>Recipe Video</Text>
+                                </TouchableOpacity>
+                            </Card>
+                        </View>
+                    </ScrollView>
+                </View>
             )
         } else {
             return (
@@ -141,8 +155,6 @@ class MealDetails extends Component {
                 </View>
             )
         }
-
-
     }
 };
 

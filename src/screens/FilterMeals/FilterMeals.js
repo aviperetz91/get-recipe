@@ -7,21 +7,21 @@ import HeaderButton from '../../components/HeaderButton';
 
 class FilterMeals extends Component {
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            headerTitle: "Filter Meals",
-            headerLeft: 
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item 
-                        title="Menu"
-                        iconName="ios-menu"   
-                        onPress={() => {
-                            navigation.toggleDrawer();
-                        }} 
-                    />
-                </HeaderButtons>
-        }
-    }
+    // static navigationOptions = ({navigation}) => {
+    //     return {
+    //         headerTitle: "Filter Meals",
+    //         headerLeft: 
+    //             <HeaderButtons HeaderButtonComponent={HeaderButton}>
+    //                 <Item 
+    //                     title="Menu"
+    //                     iconName="ios-menu"   
+    //                     onPress={() => {
+    //                         navigation.toggleDrawer();
+    //                     }} 
+    //                 />
+    //             </HeaderButtons>
+    //     }
+    // }
 
     render() {
         return(

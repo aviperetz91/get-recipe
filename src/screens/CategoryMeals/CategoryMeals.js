@@ -2,29 +2,30 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
 import axios from 'axios';
-
 import { fetchMeals } from '../../store/actions/MealsActions';
-
 import MealList from '../../components/MealList';
 import HeaderButton from '../../components/HeaderButton';
 import SearchBar from '../../components/SearchBar';
+import styles from './style';
+import Colors from '../../constants/Colors';
 
 class CategoryMeals extends Component {
 
-    static navigationOptions  = ({navigation}) => {
-        return {
-            headerTitle: navigation.getParam("categoryTitle"),
-            headerRight: 
-                <HeaderButtons HeaderButtonComponent={HeaderButton} >
-                    <Item 
-                        title="Search"
-                        iconName="ios-search"   
-                        onPress={navigation.getParam("toggle")} 
-                    />
-                </HeaderButtons>
-        }
-    }
+    // static navigationOptions  = ({navigation}) => {
+    //     return {
+    //         headerTitle: navigation.getParam("categoryTitle"),
+    //         headerRight: 
+    //             <HeaderButtons HeaderButtonComponent={HeaderButton} >
+    //                 <Item 
+    //                     title="Search"
+    //                     iconName="ios-search"   
+    //                     onPress={navigation.getParam("toggle")} 
+    //                 />
+    //             </HeaderButtons>
+    //     }
+    // }
 
     state = {
         filteredMeals: [],
@@ -33,11 +34,11 @@ class CategoryMeals extends Component {
 
     componentDidMount = () => {
         axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + this.props.navigation.getParam("categoryTitle"))
-        .then(response => {
-            this.setState({ filteredMeals: response.data.meals });
-            this.props.getMeals(response.data.meals); 
-        })
-        this.props.navigation.setParams({toggle: this.toggleSearchBarHandler})
+            .then(response => {
+                this.setState({ filteredMeals: response.data.meals });
+                this.props.getMeals(response.data.meals);
+            })
+        this.props.navigation.setParams({ toggle: this.toggleSearchBarHandler })
     }
 
     toggleSearchBarHandler = () => {
@@ -46,9 +47,9 @@ class CategoryMeals extends Component {
     }
 
     displaySearchBarHandler = () => {
-        if(this.state.searchActive) {
+        if (this.state.searchActive) {
             return (
-                <SearchBar 
+                <SearchBar
                     title="Search"
                     placeHolder="Enter a meal name"
                     onActiveSearch={this.searchMealHandler}
@@ -59,7 +60,7 @@ class CategoryMeals extends Component {
     }
 
     searchMealHandler = userInput => {
-        if(userInput === "") {
+        if (userInput === "") {
             this.props.getMeals(this.props.meals);
         }
         const searchResults = this.props.meals.filter(meal => {
@@ -69,15 +70,32 @@ class CategoryMeals extends Component {
     }
 
     render() {
+        const navigation = this.props.navigation;
         return (
             <ScrollView>
-                {this.displaySearchBarHandler()}
-                <MealList
-                    listData={this.state.filteredMeals}
-                    navigation={this.props.navigation}
-                />
+                <Header style={styles.backgroundColor} androidStatusBarColor={Colors.darkPrimary}>
+                    <Left>
+                        <Button 
+                            transparent
+                            onPress={() => navigation.goBack()}    
+                        >
+                            <Icon name='arrow-back' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>{navigation.getParam("categoryTitle")}</Title>
+                    </Body>
+                    <Right />
+                </Header>
+                <ScrollView>
+                    {this.displaySearchBarHandler()}
+                    <MealList
+                        listData={this.state.filteredMeals}
+                        navigation={this.props.navigation}
+                    />
+                </ScrollView>
             </ScrollView>
-        ) 
+        )
     }
 };
 

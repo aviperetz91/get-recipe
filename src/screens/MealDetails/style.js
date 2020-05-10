@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     },
     col: {
         width: '33%',
+    },
+    backgroundColor: {
+        backgroundColor: Colors.primary
     }
 })
   

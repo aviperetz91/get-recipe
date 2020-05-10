@@ -1,6 +1,5 @@
 export default {
-    primary: "#003366",
-    // primary: "#5700ec",
-    accent: "#e6e600",
-    label: "orange"
+    primary: "#5d00ff",
+    darkPrimary: "#4100b3",
+    accent: "#ffb84d",
 }
