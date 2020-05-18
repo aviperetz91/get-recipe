@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { ScrollView, View} from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
@@ -72,8 +72,8 @@ class CategoryMeals extends Component {
     render() {
         const navigation = this.props.navigation;
         return (
-            <ScrollView>
-                <Header style={styles.backgroundColor} androidStatusBarColor={Colors.darkPrimary}>
+            <Fragment>
+                <Header style={styles.headerStyle} androidStatusBarColor={Colors.darkPrimary}>
                     <Left>
                         <Button 
                             transparent
@@ -94,7 +94,7 @@ class CategoryMeals extends Component {
                         navigation={this.props.navigation}
                     />
                 </ScrollView>
-            </ScrollView>
+            </Fragment>
         )
     }
 };

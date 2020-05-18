@@ -97,7 +97,7 @@ class MealDetails extends Component {
 
             return (
                 <View>
-                    <Header style={styles.backgroundColor} androidStatusBarColor={Colors.darkPrimary}>
+                    <Header style={styles.headerStyle} androidStatusBarColor={Colors.darkPrimary}>
                         <Left>
                             <Button transparent onPress={() => navigation.goBack()}>
                                 <Icon name='arrow-back' />

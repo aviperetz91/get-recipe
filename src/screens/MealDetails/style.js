@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
+    headerStyle: {
+        backgroundColor: Colors.primary,
+    },
     image: {
         width: "100%",
         height: 200
@@ -45,10 +48,7 @@ const styles = StyleSheet.create({
     },
     col: {
         width: '33%',
-    },
-    backgroundColor: {
-        backgroundColor: Colors.primary
-    }
+    }    
 })
   
 export default styles;

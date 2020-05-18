@@ -25,12 +25,9 @@ class Categories extends Component {
     //     }
     // }
 
-    componentDidMount = () => {
-        console.log(this.props);
+    componentDidMount = () => { 
         axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
-        .then(response => {
-            this.props.getCategories(response.data.categories)
-        });
+        .then(response => this.props.getCategories(response.data.categories));
     }
 
     render() {

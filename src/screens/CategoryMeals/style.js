@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
-    backgroundColor: {
+    headerStyle: {
         backgroundColor: Colors.primary
     }
 })

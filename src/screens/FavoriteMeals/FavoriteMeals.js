@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { connect } from 'react-redux';
 import HeaderButton from '../../components/HeaderButton';
@@ -23,12 +24,20 @@ class FavoriteMeals extends Component {
     // }
 
     render() {
-        return (
-            <MealList
-                listData={this.props.favoriteMeals}
-                navigation={this.props.navigation}
-            />
-        )
+        if (this.props.favoriteMeals.length == 0 ) {
+            return (
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text>There is no favorite Mmeals yet...</Text>
+                </View>
+            )
+        } else {
+            return (
+                <MealList
+                    listData={this.props.favoriteMeals}
+                    navigation={this.props.navigation}
+                />
+            )
+        }
     }
 };
 
