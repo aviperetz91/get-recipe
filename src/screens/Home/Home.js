@@ -8,6 +8,7 @@ import styles from './style';
 import Colors from '../../constants/Colors';
 
 export default class Home extends Component {
+    
     render() {
         return (
             <Container>

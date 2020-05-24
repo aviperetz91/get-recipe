@@ -1,31 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { ScrollView, View} from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
 import axios from 'axios';
 import { fetchMeals } from '../../store/actions/MealsActions';
 import MealList from '../../components/MealList';
-import HeaderButton from '../../components/HeaderButton';
 import SearchBar from '../../components/SearchBar';
 import styles from './style';
 import Colors from '../../constants/Colors';
 
 class CategoryMeals extends Component {
-
-    // static navigationOptions  = ({navigation}) => {
-    //     return {
-    //         headerTitle: navigation.getParam("categoryTitle"),
-    //         headerRight: 
-    //             <HeaderButtons HeaderButtonComponent={HeaderButton} >
-    //                 <Item 
-    //                     title="Search"
-    //                     iconName="ios-search"   
-    //                     onPress={navigation.getParam("toggle")} 
-    //                 />
-    //             </HeaderButtons>
-    //     }
-    // }
 
     state = {
         filteredMeals: [],

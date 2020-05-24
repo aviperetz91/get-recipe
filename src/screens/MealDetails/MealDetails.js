@@ -2,28 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
 import { Card, List, ListItem, Left, Body, Right, Thumbnail, Header, Button, Title, Icon } from 'native-base';
 import { connect } from 'react-redux';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import axios from 'axios';
 import { selectMeal, toggleFavorite } from '../../store/actions/MealsActions';
-import HeaderButton from '../../components/HeaderButton';
 import styles from './style';
 import Colors from '../../constants/Colors';
 
 class MealDetails extends Component {
-
-    // static navigationOptions = ({ navigation }) => {
-    //     return {
-    //         headerTitle: navigation.getParam("mealTitle"),
-    //         headerRight:
-    //             <HeaderButtons HeaderButtonComponent={HeaderButton} >
-    //                 <Item
-    //                     title="Favorite"
-    //                     iconName={navigation.getParam("isFav") ? "ios-star" : "ios-star-outline"}
-    //                     onPress={navigation.getParam("toggleFavorite")}
-    //                 />
-    //             </HeaderButtons>
-    //     }
-    // }
 
     componentDidMount = () => {
         const id = this.props.navigation.getParam("mealId");
@@ -96,7 +80,7 @@ class MealDetails extends Component {
             ));
 
             return (
-                <View>
+                <ScrollView>
                     <Header style={styles.headerStyle} androidStatusBarColor={Colors.darkPrimary}>
                         <Left>
                             <Button transparent onPress={() => navigation.goBack()}>
@@ -144,7 +128,7 @@ class MealDetails extends Component {
                             </Card>
                         </View>
                     </ScrollView>
-                </View>
+                </ScrollView>
             )
         } else {
             return (

@@ -1,23 +1,26 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
-    inputContainer: {
+    container: {
+        width: "80%",
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
         marginVertical: 10
     },
     placeInput: {
-        width: "70%",
+        width: "75%",
         fontSize: 16,
         backgroundColor: "#fff",
-        borderColor: "#4287f5",
-        padding: 6,
+        borderColor: Colors.darkPrimary,
+        padding: 10,
         borderWidth: 1,
         borderRadius: 5,
     },
     placeButton: {
-        width: "30%"
+        // width: "40%",
+        // padding: 15
     },
 })
   

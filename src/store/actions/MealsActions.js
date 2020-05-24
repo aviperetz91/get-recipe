@@ -3,7 +3,6 @@ export const GET_MEALS = 'GET_MEALS';
 export const SELECT_MAEL = 'SELECT_MAEL';
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
-
 export const fetchCategories = categories => {
     return { type: GET_CATEGORIES, categories }
 }

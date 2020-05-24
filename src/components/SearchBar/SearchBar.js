@@ -12,7 +12,7 @@ class SearchBar extends Component{
 
     render(){
         return(
-            <View style={styles.inputContainer}>
+            <View style={styles.container}>
                 <TextInput
                     style={styles.placeInput}
                     value={this.state.userInput}

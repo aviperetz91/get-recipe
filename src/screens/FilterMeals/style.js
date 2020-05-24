@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     filterText: {
-        fontSize: 16,
+        fontSize: 17,
     }
 
 

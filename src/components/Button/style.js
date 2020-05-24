@@ -1,22 +1,24 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: '#fff',
+        backgroundColor: Colors.primary,
+        borderColor: Colors.primary,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: '#4287f5',
         paddingRight: 8,
         paddingLeft: 8,
         paddingTop: 0
     },
     textStyle: {
         alignSelf: 'center',
-        color: '#4287f5',
-        fontSize: 15,
+        color: '#fff',
+        fontSize: 17,
         fontWeight: '600',
-        paddingTop: 10,
-        paddingBottom: 10
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingHorizontal: 3
     }
 })
   

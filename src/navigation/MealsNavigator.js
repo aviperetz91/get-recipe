@@ -17,10 +17,6 @@ const navOptions = {
         backgroundColor: Colors.primary,
     },
     headerTintColor: "white",
-    // headerTitleStyle: {
-    //     flex: 1,
-    //     textAlign: "center"
-    // }
 }
 
 const MealsNavigator = createStackNavigator(
@@ -33,78 +29,8 @@ const MealsNavigator = createStackNavigator(
         FilterMeals: FilterMeals,
     },
     {
-        defaultNavigationOptions: navOptions // obj that created on top so that can be reuse   
-    }
-);
-
-const FavoritesNavigator = createStackNavigator(
-    {
-        FavoriteMeals: FavoriteMeals,
-        MealDetails: MealDetails, 
-    },
-    {
         defaultNavigationOptions: navOptions
     }
-)
-
-const TabsNavigator = createBottomTabNavigator(
-    {
-        // Meals: MealsNavigator,
-        Meals: {
-            screen: MealsNavigator,
-            navigationOptions: {
-                tabBarIcon: (tabInfo) => {
-                    return <Icon name="ios-restaurant" size={25} color={tabInfo.tintColor} />
-                }
-            }
-        },
-        
-        // Favorites: FavoriteMeals
-        Favorites: {
-            screen: FavoritesNavigator, 
-            navigationOptions: {
-                tabBarIcon: (tabInfo) => {
-                    return <Icon name="ios-star" size={25} color={tabInfo.tintColor} />
-                }
-            }
-        }
-    },
-    {
-        tabBarOptions: {
-            labelStyle: {
-                fontSize: 14
-            },
-            activeBackgroundColor: Colors.primary,
-            activeTintColor: Colors.accent,
-            inactiveBackgroundColor: Colors.primary,
-            inactiveTintColor: "#ccc"
-        }
-    }
 );
-
-// use a stack navigator here so that also have header
-const filterNavigator = createStackNavigator(
-    {
-        FilterMeals: FilterMeals
-    },
-    {
-        defaultNavigationOptions: navOptions
-    }
-)
-
-const RootNavigator = createDrawerNavigator(
-    {
-        Meals: TabsNavigator,
-        Filters: filterNavigator
-    },
-    {
-        contentOptions: {
-            activeTintColor: "orange",
-            labelStyle: {
-                // fontSize: 16
-            }
-        }
-    }  
-)
 
 export default createAppContainer(MealsNavigator);
