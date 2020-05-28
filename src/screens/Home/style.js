@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
     },
     backgroundColor: {
         backgroundColor: Colors.primary
+    },
+    tooltipContainer: {
+        display: 'none',  
+        borderRadius: 3
     }
 })
   
