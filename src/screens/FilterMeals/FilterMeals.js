@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, Switch } from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { Radio, Button } from 'native-base';
 import { Icon } from 'react-native-elements';
-import { connect } from 'react-redux';
 import axios from 'axios';
 import styles from './style';
 import Colors from '../../constants/Colors';
@@ -81,6 +80,5 @@ class FilterMeals extends Component {
         }
     }
 };
-
 
 export default FilterMeals;

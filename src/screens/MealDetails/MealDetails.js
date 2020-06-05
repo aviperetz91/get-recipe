@@ -66,7 +66,7 @@ class MealDetails extends Component {
             const updatedSelectedMeal = this.extendMealObject(this.props.selectedMeal, ingredientList, measureList);
 
             const ingredientAndMeasure = updatedSelectedMeal.ingredientList.map((cur, index) => (
-                <ListItem thumbnail>
+                <ListItem thumbnail key={index}>
                     <Left>
                         <Thumbnail source={{ uri: "https://www.themealdb.com/images/ingredients/" + cur + ".png" }} />
                     </Left>

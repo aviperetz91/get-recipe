@@ -26,19 +26,20 @@ export default class Home extends Component {
                                 height={75}
                                 width={150}
                                 withOverlay={false}
+                                withPointer={false}
                                 popover={
                                     <View>
                                         <TouchableOpacity
                                             style={{ marginVertical: 5 }}
                                             onPress={() => {this.tooltipRef.current.toggleTooltip();}}
                                         >
-                                            <Text style={styles.moreOptionText}>החשבון שלי</Text>
+                                            <Text style={styles.moreOptionText}>My Account</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             style={{ marginVertical: 5 }}
                                             onPress={() => {this.tooltipRef.current.toggleTooltip();}}
                                         >
-                                            <Text style={styles.moreOptionText}>הגדרות</Text>
+                                            <Text style={styles.moreOptionText}>Settings</Text>
                                         </TouchableOpacity>                                        
                                     </View>
                                 }>
